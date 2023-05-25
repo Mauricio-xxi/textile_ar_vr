@@ -1,6 +1,6 @@
 import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { Stats, OrbitControls } from "@react-three/drei";
+import { Stats, OrbitControls, Environment } from "@react-three/drei";
 import useLoad3DVectors from "../hooks/useLoad3DVectors";
 import BarsSimulator from "./BarsSimulator";
 import useMaterialsSimulator from "../hooks/useMaterialsSimulator";
@@ -49,9 +49,10 @@ const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
           ))}
           <OrbitControls target={targetPosition} />
           <Controllers />
-          <axesHelper args={[5]} />
-          <gridHelper />
-          <Stats />
+          {/* <axesHelper args={[5]} /> */}
+          {/* <gridHelper /> */}
+          {/* <Stats /> */}
+          <Environment preset={"apartment"} background blur={0.05} />
         </XR>
       </Canvas>
     </>
