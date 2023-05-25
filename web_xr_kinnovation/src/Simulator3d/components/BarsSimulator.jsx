@@ -12,11 +12,11 @@ const BarsSimulator = ({ bar, materials }) => {
   const { scene } = useThree();
   const groupRef = useRef()
 
-  useXREvent('selectstart', (e)=>{
+  useXREvent('onsqueezestart', (e)=>{
     updatePosition("global", scene)
   })
 
-  useXREvent('selectend', (e)=>{
+  useXREvent('onsqueezeend', (e)=>{
     updatePosition("global", scene)
   })
 
@@ -58,14 +58,15 @@ const BarsSimulator = ({ bar, materials }) => {
     console.log('>>>>>>>>>>>>>>>>>>>>>>>>', e)
     scene.traverse((object) => {
       if (object instanceof Line) {
-        object.position.z += 50;
+        // object.position.z += 50;
+        object.scale = new THREE.Vector3(2,2,1)
       }
     });
   }
 
   return (
     <>
-    <RayGrab >
+    <RayGrab onSelect={onSelect} >
       <group ref={groupRef} name="global">
         {bar.map((yarn, index) => {
           return (
