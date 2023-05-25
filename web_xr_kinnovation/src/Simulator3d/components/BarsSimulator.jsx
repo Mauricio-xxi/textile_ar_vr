@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import YarnSimulator from "./YarnSimulator";
 import { useThree, useFrame } from "@react-three/fiber";
 import { Line } from "three";
+import { Interactive } from "@react-three/xr";
 
 const BarsSimulator = ({ bar, materials }) => {
   const barMaterial = materials.find(
@@ -33,13 +34,23 @@ const BarsSimulator = ({ bar, materials }) => {
     });
   }, []); // Un arreglo vacío significa que este efecto se ejecutará solo una vez.
 
+  const onSelect = ()=>{
+    scene.traverse((object) => {
+      if (object instanceof Line) {
+        object.position.z += 10;
+      }
+    });
+  }
+
   return (
     <>
+    <Interactive onSelect={onSelect} >
       {bar.map((yarn, index) => {
         return (
           <YarnSimulator key={index} points={yarn[2]} material={barMaterial} />
-        );
-      })}
+          );
+        })}
+    </Interactive>
     </>
   );
 };

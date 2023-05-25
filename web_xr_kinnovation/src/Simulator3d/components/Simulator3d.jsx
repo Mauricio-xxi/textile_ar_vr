@@ -7,7 +7,7 @@ import useMaterialsSimulator from "../hooks/useMaterialsSimulator";
 import { YarnControl } from "./YarnControl";
 import * as THREE from "three";
 import SceneLogic from "./SceneLogic";
-import { Interactive, XR, Controllers, VRButton } from "@react-three/xr";
+import { XR, Controllers, VRButton } from "@react-three/xr";
 
 const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
   const { loading, backendVectors } = useLoad3DVectors(designId, viewport);
@@ -27,7 +27,7 @@ const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
       <VRButton />
       <Canvas
         camera={{
-          position: [0, 0, 0],
+          position: [0, 0, 4000],
           far: 100000,
         }}
       >
@@ -47,6 +47,7 @@ const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
             <BarsSimulator key={index} bar={bar} materials={materials} />
           ))}
           <OrbitControls target={targetPosition} />
+          <Controllers />
           <axesHelper args={[5]} />
           <gridHelper />
           <Stats />
