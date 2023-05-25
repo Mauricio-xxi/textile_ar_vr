@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import YarnSimulator from "./YarnSimulator";
 import { useThree, useFrame } from "@react-three/fiber";
 import { Line } from "three";
-import { RayGrab } from "@react-three/xr";
+import { RayGrab, useXREvent } from "@react-three/xr";
 
 const BarsSimulator = ({ bar, materials }) => {
   const barMaterial = materials.find(
@@ -10,6 +10,16 @@ const BarsSimulator = ({ bar, materials }) => {
   )?.material;
 
   const { scene } = useThree();
+  const groupRef = useRef()
+
+  useXREvent('selectstart', (e)=>{
+    updatePosition("global", scene)
+  })
+
+  useXREvent('selectend', (e)=>{
+    updatePosition("global", scene)
+  })
+
   //   useFrame(() => {
   //     scene.traverse((object) => {
   //       if (object.isMesh) {
@@ -24,6 +34,16 @@ const BarsSimulator = ({ bar, materials }) => {
   //       }
   //     });
   //   });
+
+  const updatePosition = (name, scene) => {
+    let pos = new Vector3();
+    let tempMatrix = new Matrix4;
+    tempMatrix = scene.getObjectByName(name).matrixWorld;
+  
+    // set the oldPosition based on the matrix world positions
+    pos.setFromMatrixPosition(tempMatrix);
+  };
+
   useEffect(() => {
     scene.traverse((object) => {
       if (object instanceof Line) {
@@ -46,11 +66,13 @@ const BarsSimulator = ({ bar, materials }) => {
   return (
     <>
     <RayGrab >
-      {bar.map((yarn, index) => {
-        return (
-          <YarnSimulator key={index} points={yarn[2]} material={barMaterial} />
-          );
-        })}
+      <group ref={groupRef} name="global">
+        {bar.map((yarn, index) => {
+          return (
+            <YarnSimulator key={index} points={yarn[2]} material={barMaterial} />
+            );
+          })}
+      </group>
     </RayGrab>
     </>
   );
