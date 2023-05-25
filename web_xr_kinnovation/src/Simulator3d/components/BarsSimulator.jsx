@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import YarnSimulator from "./YarnSimulator";
 import { useThree, useFrame } from "@react-three/fiber";
-import { Line } from "three";
+import { Line, Vector3, Matrix4 } from "three";
 import { RayGrab, useXREvent } from "@react-three/xr";
 
 const BarsSimulator = ({ bar, materials }) => {
