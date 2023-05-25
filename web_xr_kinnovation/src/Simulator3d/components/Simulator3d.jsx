@@ -26,6 +26,7 @@ const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
     <>
       <VRButton />
       <Canvas
+        style={{backgroundColor:"black"}}
         camera={{
           position: [0, 0, 4000],
           far: 100000,

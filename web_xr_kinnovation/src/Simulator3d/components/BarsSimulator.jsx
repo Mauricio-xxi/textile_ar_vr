@@ -34,10 +34,11 @@ const BarsSimulator = ({ bar, materials }) => {
     });
   }, []); // Un arreglo vacío significa que este efecto se ejecutará solo una vez.
 
-  const onSelect = ()=>{
+  const onSelect = (e)=>{
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>', e)
     scene.traverse((object) => {
       if (object instanceof Line) {
-        object.position.z += 10;
+        object.position.z += 50;
       }
     });
   }
