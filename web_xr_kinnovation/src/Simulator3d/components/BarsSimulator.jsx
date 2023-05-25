@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import YarnSimulator from "./YarnSimulator";
 import { useThree, useFrame } from "@react-three/fiber";
 import { Line } from "three";
-import { Interactive } from "@react-three/xr";
+import { RayGrab } from "@react-three/xr";
 
 const BarsSimulator = ({ bar, materials }) => {
   const barMaterial = materials.find(
@@ -45,13 +45,13 @@ const BarsSimulator = ({ bar, materials }) => {
 
   return (
     <>
-    <Interactive onSelect={onSelect} >
+    <RayGrab >
       {bar.map((yarn, index) => {
         return (
           <YarnSimulator key={index} points={yarn[2]} material={barMaterial} />
           );
         })}
-    </Interactive>
+    </RayGrab>
     </>
   );
 };
