@@ -1,7 +1,7 @@
 import {  useThree } from "@react-three/fiber";
 import { RayGrab } from "@react-three/xr";
 
-const BarsSimulatorContainer = (bars, materials)=>{
+const BarsSimulatorContainer = ({bars, materials})=>{
     const { scene } = useThree();
 
     const onSelect = (e)=>{
