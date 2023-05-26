@@ -7,7 +7,7 @@ import useMaterialsSimulator from "../hooks/useMaterialsSimulator";
 import { YarnControl } from "./YarnControl";
 import * as THREE from "three";
 import SceneLogic from "./SceneLogic";
-import { XR, Controllers, VRButton, RayGrab } from "@react-three/xr";
+import { XR, Controllers, ARButton, RayGrab } from "@react-three/xr";
 
 const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
   const { loading, backendVectors } = useLoad3DVectors(designId, viewport);
@@ -34,7 +34,7 @@ const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
 
   return (
     <>
-      <VRButton />
+      <ARButton />
       <Canvas
         style={{backgroundColor:"black"}}
         camera={{
