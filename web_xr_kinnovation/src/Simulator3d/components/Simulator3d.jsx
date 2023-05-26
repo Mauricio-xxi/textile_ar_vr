@@ -50,7 +50,7 @@ const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
           {/* <axesHelper args={[5]} /> */}
           {/* <gridHelper /> */}
           {/* <Stats /> */}
-          <Environment preset={"apartment"} background blur={0.05} />
+          <Environment preset={"lobby"} background blur={0.05} />
         </XR>
       </Canvas>
     </>
