@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import YarnSimulator from "./YarnSimulator";
 import { useThree, useFrame } from "@react-three/fiber";
 import { Line, Vector3, Matrix4 } from "three";
-import { RayGrab, useXREvent } from "@react-three/xr";
+import { useXREvent } from "@react-three/xr";
 
 const BarsSimulator = ({ bar, materials }) => {
   const barMaterial = materials.find(
@@ -54,18 +54,9 @@ const BarsSimulator = ({ bar, materials }) => {
     });
   }, []); // Un arreglo vacío significa que este efecto se ejecutará solo una vez.
 
-  const onSelect = (e)=>{
-    scene.traverse((object) => {
-      if (object instanceof Line) {
-        object.position.z += 50;
-        
-      }
-    });
-  }
 
   return (
     <>
-    <RayGrab onSelect={onSelect} >
       <group ref={groupRef} name="global">
         {bar.map((yarn, index) => {
           return (
@@ -73,7 +64,6 @@ const BarsSimulator = ({ bar, materials }) => {
             );
           })}
       </group>
-    </RayGrab>
     </>
   );
 };

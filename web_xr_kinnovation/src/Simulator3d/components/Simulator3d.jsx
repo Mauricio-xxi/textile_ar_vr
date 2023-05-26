@@ -1,5 +1,5 @@
 import React from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Stats, OrbitControls, Environment } from "@react-three/drei";
 import useLoad3DVectors from "../hooks/useLoad3DVectors";
 import BarsSimulator from "./BarsSimulator";
@@ -7,12 +7,12 @@ import useMaterialsSimulator from "../hooks/useMaterialsSimulator";
 import { YarnControl } from "./YarnControl";
 import * as THREE from "three";
 import SceneLogic from "./SceneLogic";
-import { XR, Controllers, VRButton } from "@react-three/xr";
+import { XR, Controllers, VRButton, RayGrab } from "@react-three/xr";
 
 const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
   const { loading, backendVectors } = useLoad3DVectors(designId, viewport);
   const { materials } = useMaterialsSimulator(backendVectors?.yarnsInfo);
-
+  const { scene } = useThree();
   if (loading) {
     return <p>loading...</p>;
   }
@@ -21,6 +21,16 @@ const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
     backendVectors?.center[1],
     backendVectors?.center[2])
   );
+
+  const onSelect = (e)=>{
+    scene.traverse((object) => {
+      if (object instanceof Line) {
+        object.position.z += 100;
+        
+      }
+    });
+  }
+
 
   return (
     <>
@@ -44,9 +54,13 @@ const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
           {materials.map((material, index) => (
             <YarnControl material={material} index={index} key={index} />
           ))}
-          {backendVectors.stitchData.map((bar, index) => (
-            <BarsSimulator key={index} bar={bar} materials={materials} />
-          ))}
+          <RayGrab onSelect={onSelect} >
+
+            {backendVectors.stitchData.map((bar, index) => (
+              <BarsSimulator key={index} bar={bar} materials={materials} />
+            ))}
+          </RayGrab>
+
           <OrbitControls target={targetPosition} />
           <Controllers />
           {/* <axesHelper args={[5]} /> */}
