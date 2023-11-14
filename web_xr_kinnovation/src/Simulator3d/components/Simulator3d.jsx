@@ -6,7 +6,7 @@ import useMaterialsSimulator from "../hooks/useMaterialsSimulator";
 import { YarnControl } from "./YarnControl";
 import * as THREE from "three";
 import SceneLogic from "./SceneLogic";
-import { XR, Controllers, VRButton } from "@react-three/xr";
+import { XR, Controllers, ARButton } from "@react-three/xr";
 import BarsSimulatorContainer from "./BarsSimulatorContainer";
 
 const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
@@ -24,9 +24,9 @@ const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
 
   return (
     <>
-      <VRButton />
+      <ARButton />
       <Canvas
-        style={{backgroundColor:"black"}}
+        //style={{backgroundColor:"black"}}
         camera={{
           position: [0, 0, 4000],
           far: 100000,
@@ -50,7 +50,7 @@ const Simulator3d = ({ designId, viewport, downloadFile, setDownloadFile }) => {
           {/* <axesHelper args={[5]} /> */}
           {/* <gridHelper /> */}
           {/* <Stats /> */}
-          <Environment preset={"lobby"} background blur={0.05} />
+          {/*<Environment preset={"lobby"} background blur={0.05} />*/}
         </XR>
       </Canvas>
     </>
